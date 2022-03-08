@@ -11,7 +11,8 @@ GraphNode::~GraphNode()
     //// STUDENT CODE
     ////
 
-    delete _chatBot; 
+    // Removed to fix segmentation fault when closing the application
+    //delete _chatBot; 
 
     ////
     //// EOF STUDENT CODE
