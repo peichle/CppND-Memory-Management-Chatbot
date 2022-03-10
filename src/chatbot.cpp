@@ -45,6 +45,84 @@ ChatBot::~ChatBot()
 //// STUDENT CODE
 ////
 
+// TASK 2
+
+// copy constructor
+ChatBot::ChatBot(const ChatBot& source) 
+{
+    std::cout << "ChatBot copy Constructor" << std::endl;
+    _chatLogic = source._chatLogic;
+    _currentNode = source._currentNode;    
+    _rootNode = source._rootNode;
+
+    _chatLogic->SetChatbotHandle(this);
+
+    _image = new wxBitmap();
+    *_image = *source._image;
+}
+
+// copy assignment 
+ChatBot& ChatBot::operator=(const ChatBot& source)
+{
+    std::cout << "ChatBot copy assignment" << std::endl;
+    _chatLogic = source._chatLogic;
+    _currentNode = source._currentNode;    
+    _rootNode = source._rootNode;
+
+    _chatLogic->SetChatbotHandle(this);
+
+    _image = new wxBitmap();
+    *_image = *source._image;
+    return *this;
+}
+
+// move contructor
+ChatBot::ChatBot(ChatBot&& source)
+{
+    std::cout << "ChatBot move Constructor" << std::endl;
+
+    _image = source._image;
+    source._image = NULL;
+
+    _rootNode = source._rootNode;
+    source._rootNode = nullptr;
+    _currentNode = source._currentNode;
+    source._currentNode = nullptr;
+
+    _chatLogic = source._chatLogic;
+    _chatLogic->SetChatbotHandle(this);
+    source._chatLogic = nullptr;
+}
+
+// move assignment
+ChatBot& ChatBot::operator=(ChatBot&& source)
+{
+    std::cout << "ChatBot move assignment" << std::endl;
+
+    if(this == &source)
+        return *this;
+    
+    // set "default" vaulues for safety
+    _image = NULL;
+    _currentNode = nullptr;
+    _rootNode = nullptr;
+    _chatLogic = nullptr;
+
+    _image = source._image;
+    _currentNode = source._currentNode;
+    _rootNode = source._rootNode;
+    _chatLogic = source._chatLogic;
+    _chatLogic->SetChatbotHandle(this);
+
+    source._image = NULL;
+    source._currentNode = nullptr;
+    source._rootNode = nullptr;
+    source._chatLogic = nullptr;
+
+    return *this;
+}
+
+
 ////
 //// EOF STUDENT CODE
 
